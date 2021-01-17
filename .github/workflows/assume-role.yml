@@ -1,8 +1,9 @@
 name: AWS Assume Role
 
-on: push
-  branches:
-    - lab001-iam-assume-role
+on: 
+  push:
+    branches:
+      - lab001-iam-assume-role
 
 jobs:
   aws-assume-role:
