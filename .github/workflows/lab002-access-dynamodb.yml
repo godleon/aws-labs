@@ -23,9 +23,9 @@ jobs:
       #   with:
       #     args: -r ${{ secrets.AWS_ASSUME_ROLE_ARN }}
           
-      - name: Identity Check
-        run: |
-          aws sts get-caller-identity
+      # - name: Identity Check
+      #   run: |
+      #     aws sts get-caller-identity
 
       - name: Put DynamoDB Item
         uses: mooyoul/dynamodb-actions@v1.2.1
