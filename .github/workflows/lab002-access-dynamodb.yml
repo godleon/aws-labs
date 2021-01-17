@@ -68,7 +68,7 @@ jobs:
 
       - name: Print specific field using built-in function
         run: |
-          echo '${{ fromJson(steps.config.outputs.item).current_timestamp }}'
+          echo 'last_update_time = ${{ fromJson(steps.config.outputs.item).last_update_time }}'
 
 
   test-multiple-outputs:
