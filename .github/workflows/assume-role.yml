@@ -6,8 +6,6 @@ jobs:
   aws-assume-role:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
-
       - name: Assume Role
         uses: docker://abatilo/aws-assume-role-action:v1.0.0
         env:
