@@ -1,0 +1,3 @@
+source/lab001-iam-assume-role/.terraform
+source/lab001-iam-assume-role/terraform.tfstate*
+source/lab001-iam-assume-role/.terraform.lock.hcl
