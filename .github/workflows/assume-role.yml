@@ -14,14 +14,20 @@ jobs:
           ls -al
 
       - name: Assume Role
-        uses: abatilo/aws-assume-role-action@v1.0.0
-        env:
-          # ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-          ROLE_ARN: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
-          ROLE_SESSION_NAME: testing
+        uses: nordcloud/aws-assume-role@master
+        env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          DURATION_SECONDS: 120
+        with:
+          args: -r ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+        # uses: abatilo/aws-assume-role-action@v1.0.0
+        # env:
+        #   # ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        #   ROLE_ARN: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+        #   ROLE_SESSION_NAME: testing
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   DURATION_SECONDS: 120
           
       - name: Identity Check
         run: |
