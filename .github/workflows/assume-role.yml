@@ -11,6 +11,7 @@ jobs:
           echo "${{ secrets.AWS_ASSUME_ROLE_ARN }}" >> secret.txt
           echo "${{ secrets.AWS_ACCESS_KEY_ID }}" >> secret.txt
           echo "${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> secret.txt
+          ls -al
 
       - name: Assume Role
         uses: docker://abatilo/aws-assume-role-action:v1.0.0
