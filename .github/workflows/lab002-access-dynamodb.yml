@@ -49,7 +49,7 @@ jobs:
 
       - name: Get DynamoDB Item
         id: config
-        uses: mooyoul/dynamodb-actions@1.2.1
+        uses: mooyoul/dynamodb-actions@v1.2.1
         # env:
         #   AWS_DEFAULT_REGION: us-east-1
         #   AWS_REGION: us-east-1
