@@ -1,0 +1,42 @@
+name: AWS Access DynamoDB
+
+on: 
+  push:
+    branches:
+      - lab002-access-dynamodb
+
+jobs:
+  aws-assume-role:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assume Role
+        uses: nordcloud/aws-assume-role@master
+        env: 
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          args: -r ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+          
+      - name: Identity Check
+        run: |
+          aws sts get-caller-identity
+
+      - name: Put DynamoDB Item
+        uses: mooyoul/dynamodb-actions@1.2.1
+        # env:
+        #   AWS_DEFAULT_REGION: ap-northeast-1
+        #   AWS_REGION: ap-northeast-1
+        #   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: put
+          region: ap-northeast-1
+          table: test
+          item: |
+            { 
+              key: "THISISCOMMITHASH",
+              timestamp: "20210116",
+              awesome: true,
+              stars: 12345
+            }
