@@ -9,6 +9,11 @@ jobs:
   aws-assume-role:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Get current time for being timestamp
+        id: get_time
+        run: echo "::set-output name=current_timestamp::$(date +'%Y%m%d%H%M')"
+
       - name: Assume Role
         uses: nordcloud/aws-assume-role@master
         env: 
@@ -36,7 +41,8 @@ jobs:
           item: |
             { 
               CommitHash: "THISISCOMMITHASH",
-              timestamp: "20210116",
+              timestamp: ${{ steps.get_time.outputs.current_timestamp }},
               awesome: true,
-              stars: 12345
+              stars: 12345, 
+              last_update_time: ${{ steps.get_time.outputs.current_timestamp }}
             }
