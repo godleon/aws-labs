@@ -23,7 +23,7 @@ jobs:
           aws sts get-caller-identity
 
       - name: Put DynamoDB Item
-        uses: mooyoul/dynamodb-actions@1.2.1
+        uses: mooyoul/dynamodb-actions@v1.2.1
         # env:
         #   AWS_DEFAULT_REGION: ap-northeast-1
         #   AWS_REGION: ap-northeast-1
