@@ -14,14 +14,14 @@ jobs:
         id: get_time
         run: echo "::set-output name=current_timestamp::$(date -d '+8 hour' '+%Y%m%d%H%M')"
 
-      - name: Assume Role
-        uses: nordcloud/aws-assume-role@master
-        env: 
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        with:
-          args: -r ${{ secrets.AWS_ASSUME_ROLE_ARN }}
+      # - name: Assume Role
+      #   uses: nordcloud/aws-assume-role@master
+      #   env: 
+      #     ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   with:
+      #     args: -r ${{ secrets.AWS_ASSUME_ROLE_ARN }}
           
       - name: Identity Check
         run: |
@@ -29,11 +29,11 @@ jobs:
 
       - name: Put DynamoDB Item
         uses: mooyoul/dynamodb-actions@v1.2.1
-        # env:
-        #   AWS_DEFAULT_REGION: ap-northeast-1
-        #   AWS_REGION: ap-northeast-1
-        #   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          # AWS_DEFAULT_REGION: ap-northeast-1
+          # AWS_REGION: ap-northeast-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           operation: put
           region: ap-northeast-1
@@ -50,11 +50,11 @@ jobs:
       - name: Get DynamoDB Item
         id: config
         uses: mooyoul/dynamodb-actions@v1.2.1
-        # env:
-        #   AWS_DEFAULT_REGION: us-east-1
-        #   AWS_REGION: us-east-1
-        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        env:
+          # AWS_DEFAULT_REGION: us-east-1
+          # AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           operation: get
           region: ap-northeast-1
