@@ -12,7 +12,7 @@ jobs:
 
       - name: Get current time for being timestamp
         id: get_time
-        run: echo "::set-output name=current_timestamp::$(date +'%Y%m%d%H%M')"
+        run: echo "::set-output name=current_timestamp::$(date -d '+8 hour' '+%Y%m%d%H%M')"
 
       - name: Assume Role
         uses: nordcloud/aws-assume-role@master
@@ -46,3 +46,43 @@ jobs:
               stars: 12345, 
               last_update_time: ${{ steps.get_time.outputs.current_timestamp }}
             }
+
+      - name: Get DynamoDB Item
+        id: config
+        uses: mooyoul/dynamodb-actions@1.2.1
+        # env:
+        #   AWS_DEFAULT_REGION: us-east-1
+        #   AWS_REGION: us-east-1
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          operation: get
+          region: ap-northeast-1
+          table: test
+          key: |
+            { CommitHash: "THISISCOMMITHASH" }
+
+      - name: Print item
+        run: |
+          echo '${{ steps.config.outputs.item }}'
+
+      - name: Print specific field using built-in function
+        run: |
+          echo '${{ fromJson(steps.config.outputs.item).current_timestamp }}'
+
+
+  test-multiple-outputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get multiple outputs
+        id: multi_data
+        run: |
+          echo "::set-output name=current_timestamp::$(date -d '+8 hour' '+%Y%m%d%H%M')"
+          echo "::set-output name=whoami::$(whoami)"
+          echo "::set-output name=pwd::$(pwd)"
+
+      - name: Display multiple outputs
+        run: |
+          echo "current_timestamp = ${{ steps.multi_data.outputs.current_timestamp }}"
+          echo "current_timestamp = ${{ steps.whoami.outputs.whoami }}"
+          echo "current_timestamp = ${{ steps.pwd.outputs.pwd }}"
