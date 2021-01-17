@@ -84,5 +84,5 @@ jobs:
       - name: Display multiple outputs
         run: |
           echo "current_timestamp = ${{ steps.multi_data.outputs.current_timestamp }}"
-          echo "current_timestamp = ${{ steps.whoami.outputs.whoami }}"
-          echo "current_timestamp = ${{ steps.pwd.outputs.pwd }}"
+          echo "whoami = ${{ steps.multi_data.outputs.whoami }}"
+          echo "whoami = ${{ steps.multi_data.outputs.pwd }}"
