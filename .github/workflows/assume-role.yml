@@ -14,7 +14,7 @@ jobs:
           ls -al
 
       - name: Assume Role
-        uses: docker://abatilo/aws-assume-role-action:v1.0.0
+        uses: abatilo/aws-assume-role-action@v1.0.0
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           ROLE_ARN: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
