@@ -6,7 +6,7 @@ jobs:
   aws-assume-role:
     runs-on: ubuntu-latest
     steps:
-      - name: Identity Check
+      - name: Exam file content size
         run: |
           echo "${{ secrets.AWS_ASSUME_ROLE_ARN }}" >> secret.txt
           echo "${{ secrets.AWS_ACCESS_KEY_ID }}" >> secret.txt
@@ -16,6 +16,7 @@ jobs:
       - name: Assume Role
         uses: nordcloud/aws-assume-role@master
         env: 
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
